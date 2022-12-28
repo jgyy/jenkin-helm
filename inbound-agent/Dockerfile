@@ -1,13 +1,10 @@
 FROM jenkins/inbound-agent:4.11.2-4
 USER root
 
-RUN apt update -y && apt install curl
-RUN mkdir -p /tmp/download && \
- curl -L https://download.docker.com/linux/static/stable/x86_64/docker-18.03.1-ce.tgz | tar -xz -C /tmp/download && \
- rm -rf /tmp/download/docker/dockerd && \
- mv /tmp/download/docker/docker* /usr/local/bin/ && \
- rm -rf /tmp/download && \
- groupadd -g 999 docker && \
- usermod -aG staff,docker jenkins
+RUN apt update -y && apt install curl -y
+RUN VERSION="v1.25.0"
+RUN wget https://github.com/kubernetes-sigs/cri-tools/releases/download/$VERSION/crictl-$VERSION-linux-amd64.tar.gz
+RUN tar zxvf crictl-$VERSION-linux-amd64.tar.gz -C /usr/local/bin
+RUN rm -f crictl-$VERSION-linux-amd64.tar.gz
 
-USER jenkins
+USER root

@@ -1,5 +1,9 @@
 # Installation guide
 
+helm install jenkins . -n jenkins --create-namespace
+
+helm upgrade jenkins . -n jenkins
+
 ```console
 ➜ jenkin-helm git:(main) helm install jenkins . -n jenkins --create-namespace
 NAME: jenkins
@@ -27,3 +31,8 @@ https://jenkins.io/projects/jcasc/
 
 NOTE: Consider using a custom image with pre-installed plugins
 ```
+
+## Docker
+
+docker build -t jgyy/nodejs-demo-app .
+docker push jgyy/nodejs-demo-app
